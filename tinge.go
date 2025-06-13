@@ -1,4 +1,4 @@
-package echochic
+package tinge
 
 import (
 	"strings"
