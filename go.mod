@@ -1,4 +1,4 @@
-module github.com/opencommand/echochic
+module github.com/opencommand/tinge
 
 go 1.23.5
 
