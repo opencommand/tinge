@@ -1,6 +1,11 @@
+// Copyright 2025 The Tinge Authors. All rights reserved.
+// Use of this source code is governed by a MIT-style
+// license that can be found in the LICENSE file.
 package tinge
 
 import (
+	"io"
+	"os"
 	"strings"
 
 	"github.com/charmbracelet/lipgloss"
@@ -135,6 +140,14 @@ func (s *StyledText) String() string {
 	return strings.Join(s.parts, "\n")
 }
 
+func (s *StyledText) Write(output ...io.Writer) {
+	out := defaultOutput
+	if len(output) > 0 {
+		out = output[0]
+	}
+	out.Write([]byte(s.String()))
+}
+
 type StyledTextBuilder struct {
 	parent *StyledText
 	style  lipgloss.Style
@@ -161,3 +174,9 @@ var (
 	Bold   = lipgloss.NewStyle().Bold(true)
 	Italic = lipgloss.NewStyle().Italic(true)
 )
+
+var defaultOutput io.Writer = os.Stdout
+
+func SetWriter(output io.Writer) {
+	defaultOutput = output
+}
